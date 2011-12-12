@@ -5,18 +5,12 @@
   <property environment="env"/>
   <property file="./build.properties"/>
 
-  <path id="project.classpath">
-
-  </path>
-  <property
-          name="scala-library.jar"
-          value="${scala.home}/lib/scala-library.jar"
-          />
+  <property name="scala-library.jar" value="${scala.home}/lib/scala-library.jar" />
 
   <path id="build.classpath">
     <pathelement location="${scala-library.jar}"/>
     <!--<pathelement location="${your.path}"   />-->
-    <fileset dir="${play.path}/repository/local">
+    <fileset dir="${play.home}/repository/local">
       <include name="**/*.jar"/>
     </fileset>
   </path>
@@ -45,7 +39,7 @@
     </copy>
 
     <scalac srcdir="${src.dir}"
-            destdir="${build.dir}"
+            destdir="${classes.dir}"
             classpathref="build.classpath">
       <include name="**/*.scala"/>
     </scalac>
@@ -59,7 +53,6 @@
       </manifest>
     </jar>
   </target>
-
 
   <target name="clean">
     <delete dir="${build.dir}"/>
