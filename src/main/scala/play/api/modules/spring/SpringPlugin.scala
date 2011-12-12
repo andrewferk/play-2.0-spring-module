@@ -7,19 +7,23 @@ import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer
 import org.springframework.context.annotation.ClassPathBeanDefinitionScanner
 import org.xml.sax.InputSource
 import org.springframework.beans.factory.BeanCreationException
-import java.io.{IOException, InputStream}
+import java.io.{File, IOException, InputStream}
 
 import play.api._
+
 // Imports the implicit "app" Application for Play.classloader
 import play.api.Play._
 
 /**
- * This is a port of the Java Spring plugin
+ * This is a port of the Java Spring plugin.  It looks for an application-context.xml file in the classpath,
+ * followed by conf/application-context.xml.  It does not do real time watching or reloading of the
+ * application context file.
  *
  * @author wsargent
  * @since 12/10/11
  */
-object SpringPlugin {
+object SpringPlugin
+{
   val PLAY_SPRING_COMPONENT_SCAN_FLAG = "play.spring.component-scan";
   val PLAY_SPRING_COMPONENT_SCAN_BASE_PACKAGES = "play.spring.component-scan.base-packages";
   val PLAY_SPRING_ADD_PLAY_PROPERTIES = "play.spring.add-play-properties";
@@ -29,29 +33,43 @@ object SpringPlugin {
   var applicationContext: Option[GenericApplicationContext] = None
 }
 
-class SpringPlugin(app: Application) extends Plugin  {
+class SpringPlugin(app: Application) extends Plugin
+{
   import SpringPlugin._
 
-  private var startDate:Long = 0;
-    
+  private var startDate: Long = 0;
+
   override def onStop {
-    applicationContext.map { context =>
-       Logger.debug("Closing Spring application context")
-       context.close()
+    applicationContext.map {
+      context =>
+        Logger.debug("Closing Spring application context")
+        context.close()
     }
   }
-  
+
   override def onStart {
     var url: URL = Play.classloader.getResource(Play.isDev + ".application-context.xml")
     if (url == null) {
       url = Play.classloader.getResource("application-context.xml")
     }
-    if (url != null) {
-      var is: InputStream = null
-      try {
-        Logger.debug("Starting Spring application context")
-        applicationContext = Some(new GenericApplicationContext)
-        applicationContext.map { context =>
+
+    // This is a last ditch fallback since it looks like conf isn't on the classpath...
+    if (url == null) {
+      val dir = Play.application.path + "/conf"
+      url = new File(dir, "application-context.xml").toURI.toURL
+    }
+
+    // Make the failure case more explicit
+    if (url == null) {
+      throw new play.api.PlayException("No application-context.xml!", "Please include an application-context.xml file in your classpath");
+    }
+
+    var is: InputStream = null
+    try {
+      Logger.debug("Starting Spring application context")
+      applicationContext = Some(new GenericApplicationContext)
+      applicationContext.map {
+        context =>
           context.setClassLoader(Play.classloader)
           val xmlReader: XmlBeanDefinitionReader = new XmlBeanDefinitionReader(context)
           if (Play.configuration.getBoolean(PLAY_SPRING_NAMESPACE_AWARE).getOrElse(false)) {
@@ -62,9 +80,10 @@ class SpringPlugin(app: Application) extends Plugin  {
             Logger.debug("Adding PropertyPlaceholderConfigurer with Play properties")
             val configurer: PropertyPlaceholderConfigurer = new PropertyPlaceholderConfigurer
             val props = new java.util.Properties()
-            Play.configuration.keys.foreach{ key =>
-              val value = Play.configuration.full(key)
-              props.setProperty(key, value)
+            Play.configuration.keys.foreach {
+              key =>
+                val value = Play.configuration.full(key)
+                props.setProperty(key, value)
             }
             configurer.setProperties(props)
             context.addBeanFactoryPostProcessor(configurer)
@@ -79,7 +98,7 @@ class SpringPlugin(app: Application) extends Plugin  {
             val scanBasePackage: String = (Play.configuration.get(PLAY_SPRING_COMPONENT_SCAN_BASE_PACKAGES)).map(f => f.value).getOrElse("")
             Logger.debug("Base package for scan: " + scanBasePackage)
             Logger.debug("Scanning...")
-            scanner.scan(scanBasePackage.split(","):_*)
+            scanner.scan(scanBasePackage.split(","): _*)
             Logger.debug("... component scanning complete")
           }
           is = url.openStream
@@ -104,25 +123,25 @@ class SpringPlugin(app: Application) extends Plugin  {
           finally {
             Thread.currentThread.setContextClassLoader(originalClassLoader)
           }
-        }
       }
-      catch {
-        case e: IOException => {
-          Logger.error("Can't load spring config file",e)
-        }
+    }
+    catch {
+      case e: IOException => {
+        Logger.error("Can't load spring config file", e)
       }
-      finally {
-        if (is != null) {
-          try {
-            is.close()
-          }
-          catch {
-            case e: IOException => {
-              Logger.error("Can't close spring config file stream",e)
-            }
+    }
+    finally {
+      if (is != null) {
+        try {
+          is.close()
+        }
+        catch {
+          case e: IOException => {
+            Logger.error("Can't close spring config file stream", e)
           }
         }
       }
     }
   }
+
 }
