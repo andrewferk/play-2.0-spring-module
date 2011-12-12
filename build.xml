@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Spring module" default="build" basedir=".">
+
+  <property environment="env"/>
+  <property file="./build.properties"/>
+
+  <path id="project.classpath">
+
+  </path>
+  <property
+          name="scala-library.jar"
+          value="${scala.home}/lib/scala-library.jar"
+          />
+
+  <path id="build.classpath">
+    <pathelement location="${scala-library.jar}"/>
+    <!--<pathelement location="${your.path}"   />-->
+    <fileset dir="${play.path}/repository/local">
+      <include name="**/*.jar"/>
+    </fileset>
+  </path>
+
+
+  <target name="-init">
+    <taskdef resource="scala/tools/ant/antlib.xml">
+      <classpath>
+        <pathelement location="${scala.home}/lib/scala-compiler.jar"/>
+        <pathelement location="${scala-library.jar}"/>
+      </classpath>
+    </taskdef>
+  </target>
+
+  <target name="build" depends="-init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${classes.dir}"/>
+
+    <copy todir="${classes.dir}">
+      <fileset dir="${src.dir}">
+        <include name="**/*.properties"/>
+        <include name="**/*.xml"/>
+        <include name="**/play.plugins"/>
+        <include name="**/play.static"/>
+      </fileset>
+    </copy>
+
+    <scalac srcdir="${src.dir}"
+            destdir="${build.dir}"
+            classpathref="build.classpath">
+      <include name="**/*.scala"/>
+    </scalac>
+
+    <mkdir dir="${build.lib.dir}"/>
+    <jar destfile="${build.lib.dir}/play-spring.jar" basedir="${classes.dir}">
+      <manifest>
+        <section name="Play">
+          <attribute name="Specification-Title" value="Spring module"/>
+        </section>
+      </manifest>
+    </jar>
+  </target>
+
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+  </target>
+
+</project>
