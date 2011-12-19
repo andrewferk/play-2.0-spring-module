@@ -82,7 +82,7 @@ class SpringPlugin(app: Application) extends Plugin
             val props = new java.util.Properties()
             Play.configuration.keys.foreach {
               key =>
-                val value = Play.configuration.full(key)
+                val value = Play.configuration.absolute(key)
                 props.setProperty(key, value)
             }
             configurer.setProperties(props)
