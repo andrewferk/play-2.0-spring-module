@@ -1,5 +1,5 @@
 name := "play-2.0-spring-module"
 
-version := "1.0"
+organization := "play.api.modules.spring"
 
-scalaVersion := "2.9.1"
+version := "1.1-SNAPSHOT"
