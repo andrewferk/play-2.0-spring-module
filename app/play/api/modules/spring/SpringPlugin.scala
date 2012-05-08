@@ -1,4 +1,4 @@
-package spring
+package play.api.modules.spring
 
 import java.net.URL
 import org.springframework.context.support.GenericApplicationContext

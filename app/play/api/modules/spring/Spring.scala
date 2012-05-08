@@ -1,4 +1,4 @@
-package spring
+package play.api.modules.spring
 
 import org.springframework.context.ApplicationContext
 

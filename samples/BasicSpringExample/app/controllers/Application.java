@@ -2,7 +2,7 @@ package controllers;
 
 import play.mvc.Controller;
 import play.mvc.Result;
-import play.modules.spring.Spring;
+import play.api.modules.spring.Spring;
 import beans.MyBean;
 
 /**

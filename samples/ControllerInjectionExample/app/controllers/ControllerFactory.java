@@ -1,6 +1,6 @@
 package controllers;
 
-import play.modules.spring.Spring;
+import play.api.modules.spring.Spring;
 
 /**
  * Produce Spring managed Controller objects with full dependencies.

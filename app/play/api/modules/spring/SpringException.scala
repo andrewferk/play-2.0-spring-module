@@ -1,4 +1,4 @@
-package spring
+package play.api.modules.spring
 
 import play.api.PlayException
 
