@@ -15,4 +15,4 @@ example:
 >
 
 With this configuration all the classes under the package "beans" will be scanned for their
-dependencies and loaded into the appliction's context.
+dependencies and loaded into the application's context.
