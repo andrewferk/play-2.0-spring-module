@@ -45,7 +45,7 @@ spring context file by simply using `${ ... }`.
 You can obtain Spring managed beans instances from within your play application using the 
 `play.modules.spring.Spring` helper. 
 
-    import play.modules.spring.Spring
+    import play.api.modules.spring.Spring
     
     // Reference a bean by name
     MyBean bean = Spring.getBean("byBeanName");
