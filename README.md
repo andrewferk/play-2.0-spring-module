@@ -6,21 +6,13 @@ original Spring Module for play 1.x, available on [Github](https://github.com/pe
 
 ## Install ##
 
-For the immediate future this plugin is available from the Texas A&M University's local unindexed
-Maven repository. In the future when the new modules site is ready at 
-`http://modules.playframework.org` this plugin will be deployed there. Until then you can use A&M's
-local repository, but since it is not indexed by Maven Central you will need to add the repository
-explicitly in your sbt build configuration.
+To install this plugin, you will have to download the project and run
 
-Add the dependency shown below on this module, along with the definition for TAMU's maven repository.
+```sbt package```
 
-    val appDependencies = Seq(
-        "play" % "spring_2.9.1" % "2.0"
-    )
-    
-    val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA).settings(
-        resolvers += "TAMU Release Repository" at "https://maven.library.tamu.edu/content/repositories/releases/"
-    )
+Then copy the jar file (i.e. target/scala-2.9.1/play-2.0-spring-module_2.9.1-1.1-SNAPSHOT.jar) to
+your Play project's library (usually in the lib directory).
+
 
 ## Configuration ##
 
@@ -64,7 +56,7 @@ You can obtain Spring managed beans instances from within your play application 
     // Reference a set of beans by type
     Map<String,MyBean> beans = Spring.getBeansOfType(MyBean.class);
 
-_See example project:_ https://github.com/scott-phillips/Spring4Play2/tree/master/samples/BasicSpringExample
+_See example project:_ https://github.com/wsargent/play-2.0-spring-module/tree/master/samples/BasicSpringExample
 
 ### Component scanning & annotation-based configuration ###
 
@@ -79,7 +71,7 @@ elements. Here's an example:
     <context:annotation-config />
     <context:component-scan base-package="beans" />
 
-_See example project:_ https://github.com/scott-phillips/Spring4Play2/tree/master/samples/AnnotationConfigExample
+_See example project:_ https://github.com/wsargent/play-2.0-spring-module/tree/master/samples/AnnotationConfigExample
 
 ### Injecting dependencies into controllers ###
 
@@ -108,4 +100,4 @@ need to return a `play.mvc.Result` object for display. Using this example your n
     GET    /one     controllers.ControllerFactory.getControllerOne.index()
     GET    /two     controllers.ControllerFactory.getControllerTwo.index()
 
-_See example project:_ https://github.com/scott-phillips/Spring4Play2/tree/master/samples/ControllerInjectionExample
+_See example project:_ https://github.com/wsargent/play-2.0-spring-module/tree/master/samples/ControllerInjectionExample
