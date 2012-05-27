@@ -56,9 +56,11 @@ class SpringPlugin(app: Application) extends Plugin {
 
   import SpringPlugin._
 
-  private var startDate: Long = 0;
+  private var startDate: Long = 0
 
-  override def enabled = applicationContext.isDefined
+  override lazy val enabled = {
+     !app.configuration.getString("springplugin").filter(_ == "disabled").isDefined
+  }
 
   override def onStop() {
     applicationContext.map {
@@ -70,13 +72,13 @@ class SpringPlugin(app: Application) extends Plugin {
 
   override def onStart() {
 
-    var url: URL = Play.configuration.getString(PLAY_SPRING_CONTEXT_PATH) match {
+    val url: URL = Play.configuration.getString(PLAY_SPRING_CONTEXT_PATH) match {
       case Some(contextPath) => {
-        Logger.debug("Loading application context: " + contextPath);
+        Logger.debug("Loading application context: " + contextPath)
         Play.classloader.getResource(contextPath)
       }
       case None => {
-        Logger.debug("Loading default application context: application-context.ml");
+        Logger.debug("Loading default application context: application-context.xml")
         Play.classloader.getResource("application-context.xml")
       }
     }
