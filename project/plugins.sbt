@@ -13,7 +13,7 @@ addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.0.0")
 
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse" % "2.1.0-RC1")
 
-addSbtPlugin("play" % "sbt-plugin" % "2.0.1")
+addSbtPlugin("play" % "sbt-plugin" % "2.1.0")
 
 // Comment to get more information during initialization
 logLevel := Level.Warn
