@@ -2,8 +2,6 @@ package play.api.modules.spring
 
 import org.springframework.context.ApplicationContext
 
-
-
 /**
  * The spring singleton.
  *
