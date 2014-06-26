@@ -1,23 +1,26 @@
 import sbt._
 import Keys._
-import play.Project._
 
-object Build extends Build
+object ApplicationBuild extends Build
 {
-
-  // publishTo := Some(Resolver.file("file", new File(Path.userHome.absolutePath+"/.m2/repository")))
-
+	import play.Play.autoImport._
+	import PlayKeys._
+  
   credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
 
   val appName = "play-spring-module"
   val appVersion = "1.1-SNAPSHOT"
 
   val appDependencies = Seq(
-          "org.springframework"    %    "spring-context"    %    "3.0.7.RELEASE",
-          "org.springframework"    %    "spring-core"       %    "3.0.7.RELEASE",
-          "org.springframework"    %    "spring-beans"      %    "3.0.7.RELEASE"
+          "org.springframework"    %    "spring-context"    %    "4.0.3.RELEASE",
+          "org.springframework"    %    "spring-core"       %    "4.0.3.RELEASE",
+          "org.springframework"    %    "spring-beans"      %    "4.0.3.RELEASE",
+		      "cglib"    %    "cglib-nodep"      %    "3.1"
   )
 
-  val main = play.Project(appName, appVersion, appDependencies).settings(organization := "play")
+  val main = Project(appName,  file(".")).enablePlugins(play.PlayJava).settings(
+		version := appVersion,
+		organization := "play"
+  )
 
 }
