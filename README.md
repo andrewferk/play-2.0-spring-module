@@ -1,6 +1,6 @@
 # Spring Module for Play 2.1 #
 
-This module helps you integrate Spring managed beans directly within your play 2.1
+This module helps you integrate Spring managed beans directly within your play 2.3.x
 application. This module is a continuation of [Nicolas Leroux](https://github.com/pepite)'s
 original Spring Module for play 1.x, available on [Github](https://github.com/pepite/Play--framework-Spring-module)
 
@@ -8,10 +8,6 @@ original Spring Module for play 1.x, available on [Github](https://github.com/pe
 
 To install this plugin, you will have to download the project and run
 
-```sbt package```
-
-Then copy the jar file (i.e. target/scala-2.9.1/play-2.0-spring-module_2.9.1-1.1-SNAPSHOT.jar) to
-your Play project's library (usually in the lib directory).
 
 
 ## Configuration ##
