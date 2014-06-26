@@ -1,18 +1,13 @@
-# Spring Module for Play 2.0 #
+# Spring Module for Play 2.3.x #
 
-This module helps you integrate Spring managed beans directly within your play 2.0
+This module helps you integrate Spring managed beans directly within your play 2.3.x
 application. This module is a continuation of [Nicolas Leroux](https://github.com/pepite)'s
 original Spring Module for play 1.x, available on [Github](https://github.com/pepite/Play--framework-Spring-module)
+and Spring Module for play 2.1, by https://github.com/wsargent
 
-## Install ##
+## install ##
 
-To install this plugin, you will have to download the project and run
-
-```sbt package```
-
-Then copy the jar file (i.e. target/scala-2.9.1/play-2.0-spring-module_2.9.1-1.1-SNAPSHOT.jar) to
-your Play project's library (usually in the lib directory).
-
+In process
 
 ## Configuration ##
 
@@ -56,7 +51,7 @@ You can obtain Spring managed beans instances from within your play application 
     // Reference a set of beans by type
     Map<String,MyBean> beans = Spring.getBeansOfType(MyBean.class);
 
-_See example project:_ https://github.com/wsargent/play-2.0-spring-module/tree/master/samples/BasicSpringExample
+_See example project:_ https://github.com/ydeshayes/play-2.3.x-spring-module/tree/master/samples/BasicSpringExample
 
 ### Component scanning & annotation-based configuration ###
 
@@ -71,7 +66,7 @@ elements. Here's an example:
     <context:annotation-config />
     <context:component-scan base-package="beans" />
 
-_See example project:_ https://github.com/wsargent/play-2.0-spring-module/tree/master/samples/AnnotationConfigExample
+_See example project:_ https://github.com/ydeshayes/play-2.3.x-spring-module/tree/master/samples/AnnotationConfigExample
 
 ### Injecting dependencies into controllers ###
 
@@ -100,4 +95,4 @@ need to return a `play.mvc.Result` object for display. Using this example your n
     GET    /one     controllers.ControllerFactory.getControllerOne.index()
     GET    /two     controllers.ControllerFactory.getControllerTwo.index()
 
-_See example project:_ https://github.com/wsargent/play-2.0-spring-module/tree/master/samples/ControllerInjectionExample
+_See example project:_ https://github.com/ydeshayes/play-2.3.x-spring-module/tree/master/samples/ControllerInjectionExample

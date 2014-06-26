@@ -11,9 +11,9 @@ addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.0.0")
 
 // Type "sbt eclipse" to create an eclipse project
 
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse" % "2.1.0-RC1")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse" % "2.5.0")
 
-addSbtPlugin("play" % "sbt-plugin" % "2.0.1")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.1")
 
 // Comment to get more information during initialization
 logLevel := Level.Warn
