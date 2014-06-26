@@ -51,7 +51,7 @@ You can obtain Spring managed beans instances from within your play application 
     // Reference a set of beans by type
     Map<String,MyBean> beans = Spring.getBeansOfType(MyBean.class);
 
-_See example project:_ https://github.com/ydeshayes/play-2.0-spring-module/tree/master/samples/BasicSpringExample
+_See example project:_ https://github.com/ydeshayes/play-2.3.x-spring-module/tree/master/samples/BasicSpringExample
 
 ### Component scanning & annotation-based configuration ###
 
@@ -66,7 +66,7 @@ elements. Here's an example:
     <context:annotation-config />
     <context:component-scan base-package="beans" />
 
-_See example project:_ https://github.com/ydeshayes/play-2.0-spring-module/tree/master/samples/AnnotationConfigExample
+_See example project:_ https://github.com/ydeshayes/play-2.3.x-spring-module/tree/master/samples/AnnotationConfigExample
 
 ### Injecting dependencies into controllers ###
 
@@ -95,4 +95,4 @@ need to return a `play.mvc.Result` object for display. Using this example your n
     GET    /one     controllers.ControllerFactory.getControllerOne.index()
     GET    /two     controllers.ControllerFactory.getControllerTwo.index()
 
-_See example project:_ https://github.com/ydeshayes/play-2.0-spring-module/tree/master/samples/ControllerInjectionExample
+_See example project:_ https://github.com/ydeshayes/play-2.3.x-spring-module/tree/master/samples/ControllerInjectionExample
