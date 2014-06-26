@@ -3,7 +3,7 @@
 This module helps you integrate Spring managed beans directly within your play 2.3.x
 application. This module is a continuation of [Nicolas Leroux](https://github.com/pepite)'s
 original Spring Module for play 1.x, available on [Github](https://github.com/pepite/Play--framework-Spring-module)
-original Spring Module for play 2.1, by https://github.com/wsargent
+and Spring Module for play 2.1, by https://github.com/wsargent
 
 ## install ##
 
